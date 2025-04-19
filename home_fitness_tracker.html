@@ -1,0 +1,166 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Home Fitness Tracker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background: #f7f7f7;
+      color: #333;
+    }
+    .section {
+      margin-bottom: 30px;
+      padding: 15px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+    .progress-bar-container {
+      width: 100%;
+      background: #ddd;
+      height: 20px;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background-color: limegreen;
+      transition: width 0.5s;
+    }
+    .dark-mode {
+      background-color: #1e1e1e;
+      color: #f1f1f1;
+    }
+    button {
+      padding: 8px 12px;
+      margin: 5px 0;
+      background-color: royalblue;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    input {
+      margin: 5px 0;
+      padding: 5px;
+      width: 80%;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🏋️ Home Fitness Tracker</h1>
+
+  <div class="section">
+    <h2>👤 Your Details</h2>
+    <input type="number" id="age" placeholder="Age"><br>
+    <input type="number" id="weight" placeholder="Weight (kg)"><br>
+    <input type="number" id="height" placeholder="Height (cm)"><br>
+    <button onclick="calculateBMI()">Calculate BMI</button>
+    <p id="bmiResult"></p>
+  </div>
+
+  <div class="section">
+    <h2>🔥 Calorie Progress</h2>
+    <button onclick="updateProgress(50)">+50 Calories Burned</button>
+    <div class="progress-bar-container">
+      <div id="progressBar" class="progress-bar"></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>💧 Water Tracker</h2>
+    <button onclick="addWater()">Add a Glass</button>
+    <p id="waterOutput"></p>
+  </div>
+
+  <div class="section">
+    <h2>👣 Step Counter (Simulation)</h2>
+    <button onclick="simulateStep()">Take Steps</button>
+    <p id="stepOutput"></p>
+  </div>
+
+  <div class="section">
+    <h2>🧠 Motivation</h2>
+    <button onclick="showQuote()">Get a Quote</button>
+    <p id="quote"></p>
+  </div>
+
+  <div class="section">
+    <h2>😴 Sleep Tracker</h2>
+    <input type="number" id="sleepHours" placeholder="How many hours did you sleep?"><br>
+    <button onclick="trackSleep()">Check Sleep Quality</button>
+    <p id="sleepResult"></p>
+  </div>
+
+  <div class="section">
+    <button onclick="toggleTheme()">Toggle Dark Mode</button>
+  </div>
+
+  <script>
+    let waterCount = 0;
+    let steps = 0;
+    let caloriesBurned = 0;
+    const calorieGoal = 500;
+
+    function calculateBMI() {
+      const weight = parseFloat(document.getElementById("weight").value);
+      const height = parseFloat(document.getElementById("height").value) / 100;
+      const bmi = (weight / (height * height)).toFixed(2);
+      let category = "";
+      if (bmi < 18.5) category = "Underweight";
+      else if (bmi < 24.9) category = "Normal";
+      else if (bmi < 29.9) category = "Overweight";
+      else category = "Obese";
+      document.getElementById("bmiResult").innerText = `Your BMI: ${bmi} (${category})`;
+    }
+
+    function updateProgress(newCalories) {
+      caloriesBurned += newCalories;
+      const percent = Math.min((caloriesBurned / calorieGoal) * 100, 100);
+      document.getElementById("progressBar").style.width = percent + "%";
+      if (caloriesBurned >= calorieGoal) {
+        alert("🎉 Goal Reached! Great job!");
+      }
+    }
+
+    function addWater() {
+      waterCount++;
+      document.getElementById("waterOutput").innerText = `You drank ${waterCount} glass(es) today! 💧`;
+    }
+
+    function simulateStep() {
+      steps += Math.floor(Math.random() * 10) + 1;
+      document.getElementById("stepOutput").innerText = `Steps today: ${steps}`;
+    }
+
+    function showQuote() {
+      const quotes = [
+        "You're doing great!",
+        "Push yourself — no one else will do it for you!",
+        "Small progress is still progress!",
+        "Consistency is key!",
+        "You got this 💪"
+      ];
+      const index = Math.floor(Math.random() * quotes.length);
+      document.getElementById("quote").innerText = quotes[index];
+    }
+
+    function trackSleep() {
+      const hours = parseInt(document.getElementById("sleepHours").value);
+      let msg = "";
+      if (hours < 6) msg = "You need more rest 😴";
+      else if (hours < 8) msg = "Good! Try to sleep a bit more.";
+      else msg = "Great sleep! You're recharged! ⚡";
+      document.getElementById("sleepResult").innerText = msg;
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle("dark-mode");
+    }
+  </script>
+</body>
+</html>

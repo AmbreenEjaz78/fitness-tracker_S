@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+  <title>Fitness Tracker App</title>
+  <link rel="stylesheet" href="style.css">
+<link rel="icon" href="icon.png"> <!-- 192x192px icon -->
+<link rel="apple-touch-icon" href="icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Fitness Tracker">
+</head>
+<body>
+  <h1>&#127939; Fitness Tracker</h1>
+
+  <div class="container">
+    <section>
+      <h2>Enter Your Info</h2>
+      <input type="number" id="age" placeholder="Age">
+      <input type="number" id="weight" placeholder="Weight (kg)">
+      <input type="number" id="height" placeholder="Height (cm)">
+      <button onclick="calculateBMI()">Calculate BMI</button>
+      <p id="bmiResult"></p>
+    </section>
+
+    <section>
+      <h2>Calories Burned</h2>
+      <button onclick="updateCalories(100)">Add 100 Calories</button>
+      <div class="progress-container">
+        <div class="progress-bar" id="calorieBar"></div>
+      </div>
+      <p id="calorieInfo"></p>
+    </section>
+
+    <section>
+      <h2>Water Intake</h2>
+      <button onclick="addWater()">+1 Glass</button>
+      <p id="waterCount">0 glasses</p>
+    </section>
+
+    <section>
+      <h2>Motivation</h2>
+      <button onclick="getQuote()">Inspire Me!</button>
+      <p id="quoteText"></p>
+    </section>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
